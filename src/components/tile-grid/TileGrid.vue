@@ -1,6 +1,10 @@
 <template>
   <div class="tile-grid">
-    <Tile v-for="(value, index) in [...Array(10)]" :key="index" />
+    <Tile
+      v-on:clickTile="handleTileClick"
+      v-for="(value, index) in [...Array(10)]"
+      :key="index"
+    />
   </div>
 </template>
 
@@ -10,6 +14,15 @@ import Tile from './Tile.vue';
 
 export default defineComponent({
   components: { Tile },
+  setup() {
+    const handleTileClick = () => {
+      console.log('handle tile click');
+    };
+
+    return {
+      handleTileClick,
+    };
+  },
 });
 </script>
 

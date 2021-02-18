@@ -1,8 +1,16 @@
 <template>
   <div class="tile">
-    <div class="tile__inner"></div>
+    <div class="tile__inner" @click="$emit('clickTile')"></div>
   </div>
 </template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  emits: ['clickTile'],
+});
+</script>
 
 <style scoped>
 .tile {
