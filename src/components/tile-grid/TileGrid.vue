@@ -1,26 +1,39 @@
 <template>
-  <div class="tile-grid">
+  <div class="tile-grid" ref="gridRef">
     <Tile
       v-on:clickTile="handleTileClick"
       v-for="(value, index) in [...Array(10)]"
       :key="index"
+      :tileSize="tileSize"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
+import { useTileSizeCalculator } from '@/composables/useTileSizeCalculator';
+
 import Tile from './Tile.vue';
 
 export default defineComponent({
   components: { Tile },
   setup() {
+    const tileSize = ref<number>(0);
+    const gridRef = ref<HTMLElement | null>(null);
+    const { calcTileSize } = useTileSizeCalculator();
+
     const handleTileClick = () => {
       console.log('handle tile click');
     };
 
+    onMounted(() => {
+      tileSize.value = calcTileSize(gridRef.value, 3);
+    });
+
     return {
       handleTileClick,
+      gridRef,
+      tileSize,
     };
   },
 });
