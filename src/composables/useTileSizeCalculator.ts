@@ -9,7 +9,7 @@ export const useTileSizeCalculator = () => {
    * @param row division
    * @return a tile size
    */
-  const calcTileSize = (element: HTMLElement | null, row: 3): number => {
+  const calcTileSize = (element: HTMLElement | null, row: number): number => {
     if (!element) return 0;
 
     const style = window.getComputedStyle(element);
