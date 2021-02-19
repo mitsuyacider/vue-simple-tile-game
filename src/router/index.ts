@@ -36,4 +36,7 @@ const router = createRouter({
   routes,
 });
 
+// FIXME: This is debug value
+router.replace('game');
+
 export default router;
