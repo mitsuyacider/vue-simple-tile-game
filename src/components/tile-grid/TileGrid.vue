@@ -5,6 +5,7 @@
       v-for="(value, index) in tiles"
       :key="index"
       :tileSize="tileSize"
+      :tile="value"
     />
   </div>
 </template>
@@ -38,8 +39,11 @@ export default defineComponent({
     const totalTile = grid.cols * grid.rows;
     for (let i = 0; i < totalTile; i++) {
       const tile: TileProps = {
-        color: '#ff0000',
-        isCorrect: false,
+        color: {
+          correct: '#ff3300',
+          wrong: '#00ff00',
+        },
+        isCorrect: !(i % totalTile),
         index: i,
       };
 

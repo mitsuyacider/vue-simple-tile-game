@@ -1,4 +1,6 @@
-export const useTileStyle = () => {
+import { TileProps, TileColor } from '../packages/data';
+
+export const useTileStyle = (tile: TileProps) => {
   /**
    * NOTE: Create tile size
    * @param size tile size
@@ -11,7 +13,19 @@ export const useTileStyle = () => {
     return style;
   };
 
+  /**
+   * NOTE: Background color
+   */
+  const getTileInnerStyle = () => {
+    const color: TileColor = tile.color;
+    const style = {
+      background: tile.isCorrect ? color.correct : color.wrong,
+    };
+    return style;
+  };
+
   return {
     getTileStyle,
+    getTileInnerStyle,
   };
 };
