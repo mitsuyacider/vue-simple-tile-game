@@ -14,6 +14,7 @@
 import { defineComponent, toRefs, onMounted, ref } from 'vue';
 import { useTileSizeCalculator } from '@/composables/useTileSizeCalculator';
 import { Game, GAMES, TileGrid, TileProps } from '@/packages/data';
+import router from '@/router';
 
 import Tile from './Tile.vue';
 
@@ -50,8 +51,16 @@ export default defineComponent({
       tiles.value.push(tile);
     }
 
-    const handleTileClick = () => {
-      console.log('handle tile click');
+    const handleTileClick = (tile: TileProps) => {
+      if (!tile.isCorrect) {
+        // NOTE: Go to game end page.
+        router.push('/game-end');
+      } else {
+        // NOTE: If the user is on a final stage,
+        // Go to ending page
+        // NOTE: If the user can still progress the game,
+        // Step up game level.
+      }
     };
 
     onMounted(() => {

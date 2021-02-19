@@ -3,7 +3,7 @@
     <div
       class="tile__inner"
       :style="getTileInnerStyle()"
-      @click="$emit('clickTile')"
+      @click="$emit('clickTile', tile)"
     ></div>
   </div>
 </template>
