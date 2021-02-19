@@ -1,16 +1,20 @@
 <template>
   <div>
-    <TileGrid />
+    <div id="nav">
+      <router-link to="/">Game Start</router-link> |
+      <router-link to="/game">Play Game</router-link> |
+      <router-link to="/game-end">Game End</router-link>
+    </div>
+
+    <router-view />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { TileGrid } from '@/components/tile-grid';
 
 export default defineComponent({
   name: 'App',
-  components: { TileGrid },
 });
 </script>
 
