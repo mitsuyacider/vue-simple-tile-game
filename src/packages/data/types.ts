@@ -5,8 +5,8 @@ export type TileGrid = {
 };
 
 // NOTE: Tile information
-export type Tile = {
-  color: string;
+export type TileProps = {
+  color: TileColor;
   isCorrect: boolean;
   index: number;
 };

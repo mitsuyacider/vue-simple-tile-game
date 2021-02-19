@@ -1,12 +1,18 @@
 <template>
   <div class="tile" :style="getTileStyle(tileSize)">
-    <div class="tile__inner" @click="$emit('clickTile')"></div>
+    <div
+      class="tile__inner"
+      :style="getTileInnerStyle()"
+      @click="$emit('clickTile', tile)"
+    ></div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, toRefs } from 'vue';
 import { useTileStyle } from '@/composables/useTileStyle';
+import { TileProps } from '@/packages/data';
+
 export default defineComponent({
   emits: ['clickTile'],
   props: {
@@ -14,11 +20,25 @@ export default defineComponent({
       type: Number,
       default: 0,
     },
+    tile: {
+      type: Object as () => TileProps,
+      default: {
+        color: {
+          correct: '#ff0000',
+          wrong: '#000000',
+        },
+        isCorrect: false,
+        index: 0,
+      },
+    },
   },
-  setup() {
-    const { getTileStyle } = useTileStyle();
+  setup(props) {
+    const { tile } = toRefs(props);
+    const { getTileStyle, getTileInnerStyle } = useTileStyle(tile.value);
+
     return {
       getTileStyle,
+      getTileInnerStyle,
     };
   },
 });
