@@ -1,7 +1,7 @@
 <template>
-  <div class="home">
+  <div class="game-end">
+    <div>Game Over</div>
     <div>
-      <router-link to="/">Go to Start</router-link> |
       <router-link to="/game">Restart</router-link>
     </div>
     <!-- <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" /> -->
@@ -16,3 +16,9 @@ export default defineComponent({
   name: 'GameEnd',
 });
 </script>
+
+<style scoped>
+.game-end {
+  text-align: center;
+}
+</style>

@@ -1,8 +1,11 @@
 <template>
+  <div class="game-level">Level: {{ gameLevel }}</div>
+
   <div class="grid-container">
     <div class="loading" v-if="!game || !tiles">
       Loading...
     </div>
+
     <TileGrid :game="game" ref="gridRef">
       <template #game-tile>
         <Tile
@@ -74,6 +77,7 @@ export default defineComponent({
       tiles,
       tileSize,
       handleTileClick,
+      gameLevel,
     };
   },
 });
@@ -94,5 +98,9 @@ export default defineComponent({
 
 .grid-container {
   position: relative;
+}
+
+.game-level {
+  text-align: center;
 }
 </style>
