@@ -31,6 +31,7 @@ import { useTileAction } from '@/composables/useTileAction';
 import { useGameConfig } from '@/composables/useGameConfig';
 import { useTileGenerator } from '@/composables/useTileGenerator';
 import { useWindowResize } from '@/composables/useWindowResize';
+import { useGridElement } from '@/composables/useGridElement';
 
 export default defineComponent({
   name: 'Game',
@@ -45,18 +46,7 @@ export default defineComponent({
     // NOTE: Composables
     const { handleTileClick } = useTileAction(game, gameLevel);
     const { tiles, generateTiles, calcTileSize } = useTileGenerator();
-
-    const getGridElement = () => {
-      // NOTE: Get proxy value for tile grid ref
-      // Refs: https://v3.vuejs.org/guide/reactivity.html#what-is-reactivity
-      const handler = {
-        get(target: any, prop: any) {
-          return target[prop];
-        },
-      };
-      const proxy = new Proxy(gridRef.value, handler);
-      return proxy.gridRef;
-    };
+    const { getGridElement } = useGridElement(gridRef);
 
     // NOTE: Create tile config when game config has changed
     watch(game, () => {

@@ -9,14 +9,8 @@ export const useWindowResize = () => {
     windowWidth.value = window.innerWidth;
   }
 
-  onMounted(() => {
-    resize();
-    window.addEventListener('resize', resize);
-  });
-
-  onUnmounted(() => {
-    window.removeEventListener('resize', resize);
-  });
+  onMounted(() => window.addEventListener('resize', resize));
+  onUnmounted(() => window.removeEventListener('resize', resize));
 
   return { windowHeight, windowWidth };
 };
