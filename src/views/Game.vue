@@ -1,5 +1,11 @@
 <template>
-  <div>
+  <div class="game-level">Level: {{ gameLevel }}</div>
+
+  <div class="grid-container">
+    <div class="loading" v-if="!game || !tiles">
+      Loading...
+    </div>
+
     <TileGrid :game="game" ref="gridRef">
       <template #game-tile>
         <Tile
@@ -71,18 +77,30 @@ export default defineComponent({
       tiles,
       tileSize,
       handleTileClick,
+      gameLevel,
     };
   },
 });
 </script>
 
 <style scoped>
-.hello {
-  font-size: 12px;
-  color: black;
-  background: red;
-  display: block;
+.loading {
+  position: absolute;
+  background: rgba(255, 255, 255, 1);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  min-height: 300px;
+}
+
+.grid-container {
   position: relative;
-  z-index: 1;
+}
+
+.game-level {
+  text-align: center;
 }
 </style>
