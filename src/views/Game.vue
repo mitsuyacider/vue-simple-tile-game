@@ -29,25 +29,9 @@ export default defineComponent({
     const tileSize = ref<number>(0);
     const tiles = ref<TileProps[]>([]);
     const gridRef = ref<HTMLElement | null>(null);
-    const grid: TileGridProps = game.value.grid;
 
     const { calcTileSize } = useTileSizeCalculator();
     const { handleTileClick } = useTileAction(game);
-
-    // NOTE: Create tile config
-    const totalTile = grid.cols * grid.rows;
-    for (let i = 0; i < totalTile; i++) {
-      const tile: TileProps = {
-        color: {
-          correct: '#ff3300',
-          wrong: '#00ff00',
-        },
-        isCorrect: !(i % totalTile),
-        index: i,
-      };
-
-      tiles.value.push(tile);
-    }
 
     const getGridElement = () => {
       // NOTE: Get proxy value for tile grid ref
@@ -65,15 +49,12 @@ export default defineComponent({
       // NOTE: Create tile config
       tiles.value = Object.assign([]);
       const grid: TileGridProps = game.value.grid;
-
+      console.log(game.value.tileColor);
       // NOTE: Create tile config
       const totalTile = grid.cols * grid.rows;
       for (let i = 0; i < totalTile; i++) {
         const tile: TileProps = {
-          color: {
-            correct: '#ff3300',
-            wrong: '#00ff00',
-          },
+          color: game.value.tileColor,
           isCorrect: !(i % totalTile),
           index: i,
         };
@@ -82,12 +63,12 @@ export default defineComponent({
       }
 
       if (gridRef.value) {
-        tileSize.value = calcTileSize(getGridElement(), grid.cols);
+        tileSize.value = calcTileSize(getGridElement(), game.value.grid.cols);
       }
     });
 
     onMounted(() => {
-      tileSize.value = calcTileSize(getGridElement(), grid.cols);
+      tileSize.value = calcTileSize(getGridElement(), game.value.grid.cols);
     });
 
     return {
