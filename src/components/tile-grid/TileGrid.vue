@@ -22,7 +22,7 @@ export default defineComponent({
 <style></style>
 
 <style scoped>
-.tile-grid::after {
+.tile-grid::before {
   content: '';
   position: absolute;
   top: 0;

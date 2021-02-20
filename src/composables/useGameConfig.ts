@@ -8,6 +8,7 @@ export const useGameConfig = () => {
   const gameLevel = ref<number>(1);
 
   const getGameData = async () => {
+    game.value = null;
     game.value = await fetchGameData(gameLevel.value);
   };
 
