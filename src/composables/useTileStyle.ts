@@ -1,6 +1,7 @@
+import { Ref } from 'vue';
 import { TileProps, TileColor } from '../packages/data';
 
-export const useTileStyle = (tile: TileProps) => {
+export const useTileStyle = (tile: Ref<TileProps>) => {
   /**
    * NOTE: Create tile size
    * @param size tile size
@@ -17,9 +18,9 @@ export const useTileStyle = (tile: TileProps) => {
    * NOTE: Background color
    */
   const getTileInnerStyle = () => {
-    const color: TileColor = tile.color;
+    const color: TileColor = tile.value.color;
     const style = {
-      background: tile.isCorrect ? color.correct : color.wrong,
+      background: tile.value.isCorrect ? color.correct : color.wrong,
     };
     return style;
   };

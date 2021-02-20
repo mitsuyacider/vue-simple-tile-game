@@ -1,77 +1,20 @@
 <template>
   <div class="tile-grid" ref="gridRef">
-    <Tile
-      v-on:clickTile="handleTileClick"
-      v-for="(value, index) in tiles"
-      :key="index"
-      :tileSize="tileSize"
-      :tile="value"
-    />
+    <!-- Game tile -->
+    <slot name="game-tile"></slot>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, onMounted, ref } from 'vue';
-import { useTileSizeCalculator } from '@/composables/useTileSizeCalculator';
-import { Game, GAMES, TileGrid, TileProps } from '@/packages/data';
-import router from '@/router';
-
-import Tile from './Tile.vue';
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
-  components: { Tile },
-  props: {
-    game: {
-      type: Object as () => Game,
-      require: true,
-      default: GAMES.results[0],
-    },
-  },
-  setup(props) {
-    const tileSize = ref<number>(0);
+  props: {},
+  setup() {
     const gridRef = ref<HTMLElement | null>(null);
-    const tiles = ref<TileProps[]>([]);
-
-    const { calcTileSize } = useTileSizeCalculator();
-    const { game } = toRefs(props);
-    const grid: TileGrid = game.value.grid;
-
-    // NOTE: Create tile config
-    const totalTile = grid.cols * grid.rows;
-    for (let i = 0; i < totalTile; i++) {
-      const tile: TileProps = {
-        color: {
-          correct: '#ff3300',
-          wrong: '#00ff00',
-        },
-        isCorrect: !(i % totalTile),
-        index: i,
-      };
-
-      tiles.value.push(tile);
-    }
-
-    const handleTileClick = (tile: TileProps) => {
-      if (!tile.isCorrect) {
-        // NOTE: Go to game end page.
-        router.push('/game-end');
-      } else {
-        // NOTE: If the user is on a final stage,
-        // Go to ending page
-        // NOTE: If the user can still progress the game,
-        // Step up game level.
-      }
-    };
-
-    onMounted(() => {
-      tileSize.value = calcTileSize(gridRef.value, grid.cols);
-    });
 
     return {
-      handleTileClick,
       gridRef,
-      tileSize,
-      tiles,
     };
   },
 });

@@ -1,5 +1,5 @@
 // NOTE: Tile grid information
-export type TileGrid = {
+export type TileGridProps = {
   cols: number;
   rows: number;
 };
@@ -20,6 +20,7 @@ export type TileColor = {
 // NOTE: Game config
 export type Game = {
   level: number;
+  isFinalLevel?: boolean;
   tileColor: TileColor;
-  grid: TileGrid;
+  grid: TileGridProps;
 };
