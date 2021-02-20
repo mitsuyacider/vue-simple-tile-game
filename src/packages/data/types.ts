@@ -8,7 +8,6 @@ export type TileGridProps = {
 export type TileProps = {
   color: TileColor;
   isCorrect: boolean;
-  index: number;
 };
 
 // NOTE: Tile color

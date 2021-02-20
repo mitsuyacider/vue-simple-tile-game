@@ -9,7 +9,6 @@
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
-  props: {},
   setup() {
     const gridRef = ref<HTMLElement | null>(null);
 
