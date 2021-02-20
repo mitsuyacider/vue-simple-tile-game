@@ -30,12 +30,13 @@ export default defineComponent({
   components: { TileGrid, Tile },
   setup() {
     // NOTE: Reactive values
+
     const tileSize = ref<number>(0);
     const gridRef = ref<HTMLElement | null>(null);
-    const { game } = useGameConfig();
+    const { game, gameLevel } = useGameConfig();
 
     // NOTE: Composables
-    const { handleTileClick } = useTileAction(game);
+    const { handleTileClick } = useTileAction(game, gameLevel);
     const { tiles, generateTiles, calcTileSize } = useTileGenerator();
 
     const getGridElement = () => {

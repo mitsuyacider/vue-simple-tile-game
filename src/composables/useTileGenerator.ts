@@ -47,7 +47,6 @@ export const useTileGenerator = () => {
       const tile: TileProps = {
         color: game.tileColor,
         isCorrect: correctIndex === i,
-        index: i,
       };
 
       tiles.push(tile);

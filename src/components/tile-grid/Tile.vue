@@ -28,7 +28,6 @@ export default defineComponent({
           wrong: '#000000',
         },
         isCorrect: false,
-        index: 0,
       },
     },
   },

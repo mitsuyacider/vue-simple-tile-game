@@ -1,10 +1,13 @@
 import { Ref } from 'vue';
 import { TileProps } from '../packages/data';
-import { Game, GAMES } from '@/packages/data';
+import { Game } from '@/packages/data';
 
 import router from '@/router';
 
-export const useTileAction = (game: Ref<Game | null>) => {
+export const useTileAction = (
+  game: Ref<Game | null>,
+  gameLevel: Ref<number>,
+) => {
   const handleTileClick = (tile: TileProps) => {
     if (!game) return;
 
@@ -19,7 +22,12 @@ export const useTileAction = (game: Ref<Game | null>) => {
       } else {
         // NOTE: If the user can still progress the game,
         // Step up game level.
-        game.value = GAMES.results[game.value!.level];
+        // game.value = GAMES.results[game.value!.level];
+
+        // game.value = Object.assign({}, game.value!, {
+        //   level: game.value!.level + 1,
+        // });
+        gameLevel.value += 1;
       }
     }
   };

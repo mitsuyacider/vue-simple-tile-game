@@ -1,38 +1,24 @@
-import { ref, reactive, onMounted } from 'vue';
+import { ref, watch, reactive, onMounted } from 'vue';
 import { fetchGameData } from '@/packages/api';
-import { Game, TileGridProps, TileProps } from '@/packages/data';
+import { Game, TileProps } from '@/packages/data';
 
 export const useGameConfig = () => {
   const game = ref<Game | null>(null);
   const tiles = reactive<TileProps[]>([]);
+  const gameLevel = ref<number>(1);
 
   const getGameData = async () => {
-    game.value = await fetchGameData(1);
-
-    tiles.splice(-tiles.length);
-    const grid: TileGridProps = game.value!.grid;
-
-    // NOTE: Create tile config
-    const totalTile = grid.cols * grid.rows;
-
-    // NOTE: Generate correct tile index randomly.
-    const correctIndex = Math.floor(Math.random() * totalTile);
-
-    for (let i = 0; i < totalTile; i++) {
-      const tile: TileProps = {
-        color: game.value!.tileColor,
-        isCorrect: correctIndex === i,
-        index: i,
-      };
-
-      tiles.push(tile);
-    }
+    game.value = await fetchGameData(gameLevel.value);
   };
 
   onMounted(getGameData);
-  //   watch(game, getGameData)
+
+  // NOTE: When game level has changed, get next game data.
+  watch(gameLevel, getGameData);
+
   return {
     game,
     tiles,
+    gameLevel,
   };
 };
