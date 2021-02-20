@@ -8,7 +8,6 @@ describe('useTileStyle', () => {
         wrong: '#000000',
       },
       isCorrect: false,
-      index: 0,
     };
     const { getTileStyle } = useTileStyle(tile);
     const style = getTileStyle(100);

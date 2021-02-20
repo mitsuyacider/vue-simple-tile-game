@@ -1,11 +1,8 @@
 <template>
   <div>
-    <div id="nav">
-      <router-link to="/">Game Start</router-link> |
-      <router-link to="/game">Play Game</router-link> |
-      <router-link to="/game-end">Game End</router-link>
-    </div>
-
+    <header>
+      <h1>Game of Colors</h1>
+    </header>
     <router-view />
   </div>
 </template>
@@ -18,4 +15,13 @@ export default defineComponent({
 });
 </script>
 
-<style></style>
+<style>
+header {
+  text-align: center;
+  min-height: 80px;
+}
+
+h1 {
+  line-height: 80px;
+}
+</style>

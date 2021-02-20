@@ -9,7 +9,6 @@
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
-  props: {},
   setup() {
     const gridRef = ref<HTMLElement | null>(null);
 
@@ -23,7 +22,7 @@ export default defineComponent({
 <style></style>
 
 <style scoped>
-.tile-grid::after {
+.tile-grid::before {
   content: '';
   position: absolute;
   top: 0;
@@ -47,5 +46,11 @@ export default defineComponent({
 
   /* Trim space */
   font-size: 0;
+}
+
+@media screen {
+  .tile-grid {
+    width: 80vw;
+  }
 }
 </style>

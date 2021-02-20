@@ -1,5 +1,11 @@
 <template>
-  <div>
+  <div class="game-level">Level: {{ gameLevel }}</div>
+
+  <div class="grid-container">
+    <div class="loading" v-if="!game || !tiles">
+      Loading...
+    </div>
+
     <TileGrid :game="game" ref="gridRef">
       <template #game-tile>
         <Tile
@@ -15,24 +21,29 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, onMounted, watchEffect } from 'vue';
+import { defineComponent, ref, onMounted, watchEffect } from 'vue';
+
+// Components
 import { TileGrid, Tile } from '@/components/tile-grid';
-import { Game, GAMES, TileProps, TileGridProps } from '@/packages/data';
-import { useTileSizeCalculator } from '@/composables/useTileSizeCalculator';
+
+// Composables
 import { useTileAction } from '@/composables/useTileAction';
+import { useGameConfig } from '@/composables/useGameConfig';
+import { useTileGenerator } from '@/composables/useTileGenerator';
 
 export default defineComponent({
   name: 'Game',
   components: { TileGrid, Tile },
   setup() {
-    const game = ref<Game>(GAMES.results[0]);
-    const tileSize = ref<number>(0);
-    // const tiles = ref<TileProps[]>([]);
-    const tiles = reactive<TileProps[]>([]);
-    const gridRef = ref<HTMLElement | null>(null);
+    // NOTE: Reactive values
 
-    const { calcTileSize } = useTileSizeCalculator();
-    const { handleTileClick } = useTileAction(game);
+    const tileSize = ref<number>(0);
+    const gridRef = ref<HTMLElement | null>(null);
+    const { game, gameLevel } = useGameConfig();
+
+    // NOTE: Composables
+    const { handleTileClick } = useTileAction(game, gameLevel);
+    const { tiles, generateTiles, calcTileSize } = useTileGenerator();
 
     const getGridElement = () => {
       // NOTE: Get proxy value for tile grid ref
@@ -48,27 +59,16 @@ export default defineComponent({
 
     watchEffect(() => {
       // NOTE: Create tile config
-      tiles.splice(-tiles.length);
-      const grid: TileGridProps = game.value.grid;
-      // NOTE: Create tile config
-      const totalTile = grid.cols * grid.rows;
-      for (let i = 0; i < totalTile; i++) {
-        const tile: TileProps = {
-          color: game.value.tileColor,
-          isCorrect: !(i % totalTile),
-          index: i,
-        };
+      if (!gridRef.value || !game.value) return;
 
-        tiles.push(tile);
-      }
-
-      if (gridRef.value) {
-        tileSize.value = calcTileSize(getGridElement(), game.value.grid.cols);
-      }
+      generateTiles(game.value);
+      tileSize.value = calcTileSize(getGridElement(), game.value!.grid.cols);
     });
 
     onMounted(() => {
-      tileSize.value = calcTileSize(getGridElement(), game.value.grid.cols);
+      if (game.value) {
+        tileSize.value = calcTileSize(getGridElement(), game.value!.grid.cols);
+      }
     });
 
     return {
@@ -77,18 +77,30 @@ export default defineComponent({
       tiles,
       tileSize,
       handleTileClick,
+      gameLevel,
     };
   },
 });
 </script>
 
 <style scoped>
-.hello {
-  font-size: 12px;
-  color: black;
-  background: red;
-  display: block;
+.loading {
+  position: absolute;
+  background: rgba(255, 255, 255, 1);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  min-height: 300px;
+}
+
+.grid-container {
   position: relative;
-  z-index: 1;
+}
+
+.game-level {
+  text-align: center;
 }
 </style>
