@@ -47,4 +47,10 @@ export default defineComponent({
   /* Trim space */
   font-size: 0;
 }
+
+@media screen {
+  .tile-grid {
+    width: 80vw;
+  }
+}
 </style>
