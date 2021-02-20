@@ -48,7 +48,7 @@ export default defineComponent({
   font-size: 0;
 }
 
-@media screen {
+@media only screen and (max-width: 768px) {
   .tile-grid {
     width: 80vw;
   }
