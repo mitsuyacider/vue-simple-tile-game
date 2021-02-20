@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, watchEffect } from 'vue';
+import { defineComponent, reactive, ref, onMounted, watchEffect } from 'vue';
 import { TileGrid, Tile } from '@/components/tile-grid';
 import { Game, GAMES, TileProps, TileGridProps } from '@/packages/data';
 import { useTileSizeCalculator } from '@/composables/useTileSizeCalculator';
@@ -27,7 +27,8 @@ export default defineComponent({
   setup() {
     const game = ref<Game>(GAMES.results[0]);
     const tileSize = ref<number>(0);
-    const tiles = ref<TileProps[]>([]);
+    // const tiles = ref<TileProps[]>([]);
+    const tiles = reactive<TileProps[]>([]);
     const gridRef = ref<HTMLElement | null>(null);
 
     const { calcTileSize } = useTileSizeCalculator();
@@ -47,9 +48,8 @@ export default defineComponent({
 
     watchEffect(() => {
       // NOTE: Create tile config
-      tiles.value = Object.assign([]);
+      tiles.splice(-tiles.length);
       const grid: TileGridProps = game.value.grid;
-      console.log(game.value.tileColor);
       // NOTE: Create tile config
       const totalTile = grid.cols * grid.rows;
       for (let i = 0; i < totalTile; i++) {
@@ -59,7 +59,7 @@ export default defineComponent({
           index: i,
         };
 
-        tiles.value.push(tile);
+        tiles.push(tile);
       }
 
       if (gridRef.value) {

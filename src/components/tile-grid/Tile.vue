@@ -34,7 +34,7 @@ export default defineComponent({
   },
   setup(props) {
     const { tile } = toRefs(props);
-    const { getTileStyle, getTileInnerStyle } = useTileStyle(tile.value);
+    const { getTileStyle, getTileInnerStyle } = useTileStyle(tile);
 
     return {
       getTileStyle,
