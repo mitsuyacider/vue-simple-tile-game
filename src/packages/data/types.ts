@@ -20,6 +20,7 @@ export type TileColor = {
 // NOTE: Game config
 export type Game = {
   level: number;
+  isFinalLevel?: boolean;
   tileColor: TileColor;
   grid: TileGridProps;
 };

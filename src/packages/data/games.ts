@@ -25,6 +25,7 @@ export const GAMES: GamesResponse = {
       level: 3,
       tileColor: LEVEL3_COLOR,
       grid: LEVEL3_GRID,
+      isFinalLevel: true,
     },
   ],
 };
