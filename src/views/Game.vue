@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, watchEffect } from 'vue';
+import { defineComponent, watch, ref, onMounted } from 'vue';
 
 // Components
 import { TileGrid, Tile } from '@/components/tile-grid';
@@ -30,16 +30,17 @@ import { TileGrid, Tile } from '@/components/tile-grid';
 import { useTileAction } from '@/composables/useTileAction';
 import { useGameConfig } from '@/composables/useGameConfig';
 import { useTileGenerator } from '@/composables/useTileGenerator';
+import { useWindowResize } from '@/composables/useWindowResize';
 
 export default defineComponent({
   name: 'Game',
   components: { TileGrid, Tile },
   setup() {
     // NOTE: Reactive values
-
     const tileSize = ref<number>(0);
     const gridRef = ref<HTMLElement | null>(null);
     const { game, gameLevel } = useGameConfig();
+    const { windowWidth } = useWindowResize();
 
     // NOTE: Composables
     const { handleTileClick } = useTileAction(game, gameLevel);
@@ -57,11 +58,17 @@ export default defineComponent({
       return proxy.gridRef;
     };
 
-    watchEffect(() => {
-      // NOTE: Create tile config
+    // NOTE: Create tile config when game config has changed
+    watch(game, () => {
       if (!gridRef.value || !game.value) return;
 
       generateTiles(game.value);
+      tileSize.value = calcTileSize(getGridElement(), game.value!.grid.cols);
+    });
+
+    // NOTE: Resize tile size when window size has changed
+    watch(windowWidth, () => {
+      if (!gridRef.value || !game.value) return;
       tileSize.value = calcTileSize(getGridElement(), game.value!.grid.cols);
     });
 
