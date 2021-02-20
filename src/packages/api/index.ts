@@ -1,0 +1,1 @@
+export { fetchGameData } from './fetchGameData';

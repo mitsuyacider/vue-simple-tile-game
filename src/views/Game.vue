@@ -15,24 +15,28 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, onMounted, watchEffect } from 'vue';
+import { defineComponent, ref, onMounted, watchEffect } from 'vue';
+
+// Components
 import { TileGrid, Tile } from '@/components/tile-grid';
-import { Game, GAMES, TileProps, TileGridProps } from '@/packages/data';
-import { useTileSizeCalculator } from '@/composables/useTileSizeCalculator';
+
+// Composables
 import { useTileAction } from '@/composables/useTileAction';
+import { useGameConfig } from '@/composables/useGameConfig';
+import { useTileGenerator } from '@/composables/useTileGenerator';
 
 export default defineComponent({
   name: 'Game',
   components: { TileGrid, Tile },
   setup() {
-    const game = ref<Game>(GAMES.results[0]);
+    // NOTE: Reactive values
     const tileSize = ref<number>(0);
-    // const tiles = ref<TileProps[]>([]);
-    const tiles = reactive<TileProps[]>([]);
     const gridRef = ref<HTMLElement | null>(null);
+    const { game } = useGameConfig();
 
-    const { calcTileSize } = useTileSizeCalculator();
+    // NOTE: Composables
     const { handleTileClick } = useTileAction(game);
+    const { tiles, generateTiles, calcTileSize } = useTileGenerator();
 
     const getGridElement = () => {
       // NOTE: Get proxy value for tile grid ref
@@ -48,27 +52,16 @@ export default defineComponent({
 
     watchEffect(() => {
       // NOTE: Create tile config
-      tiles.splice(-tiles.length);
-      const grid: TileGridProps = game.value.grid;
-      // NOTE: Create tile config
-      const totalTile = grid.cols * grid.rows;
-      for (let i = 0; i < totalTile; i++) {
-        const tile: TileProps = {
-          color: game.value.tileColor,
-          isCorrect: !(i % totalTile),
-          index: i,
-        };
+      if (!gridRef.value || !game.value) return;
 
-        tiles.push(tile);
-      }
-
-      if (gridRef.value) {
-        tileSize.value = calcTileSize(getGridElement(), game.value.grid.cols);
-      }
+      generateTiles(game.value);
+      tileSize.value = calcTileSize(getGridElement(), game.value!.grid.cols);
     });
 
     onMounted(() => {
-      tileSize.value = calcTileSize(getGridElement(), game.value.grid.cols);
+      if (game.value) {
+        tileSize.value = calcTileSize(getGridElement(), game.value!.grid.cols);
+      }
     });
 
     return {
