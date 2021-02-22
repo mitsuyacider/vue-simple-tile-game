@@ -1,7 +1,7 @@
 import { LEVEL1_COLOR, LEVEL2_COLOR, LEVEL3_COLOR } from './colors';
 import { LEVEL1_GRID, LEVEL2_GRID, LEVEL3_GRID } from './grids';
 
-import { Game } from './types';
+import { Game, StartTileProps } from './types';
 
 type GamesResponse = {
   count: number;
@@ -29,3 +29,52 @@ export const GAMES: GamesResponse = {
     },
   ],
 };
+
+export const GAME_START: Game = {
+  level: 1,
+  tileColor: {
+    correct: '#ff0000',
+    wrong: '#000000',
+  },
+  grid: {
+    rows: 2,
+    cols: 2,
+  },
+};
+
+export const START_TILES: StartTileProps[] = [
+  {
+    color: {
+      correct: '#ff0000',
+      wrong: '#000000',
+    },
+    isCorrect: false,
+    text:
+      'This is a single-page JavaScript application that displays a matrix of colored tiles.',
+  },
+  {
+    color: {
+      correct: '#ff0000',
+      wrong: '#000000',
+    },
+    isCorrect: false,
+    text:
+      'If you click on the correct tile, the game continues, and you progresses to the next level of difficulty.',
+  },
+  {
+    color: {
+      correct: '#ff0000',
+      wrong: '#000000',
+    },
+    isCorrect: true,
+    text: 'Select this tile to play game',
+  },
+  {
+    color: {
+      correct: '#ff0000',
+      wrong: '#000000',
+    },
+    isCorrect: false,
+    text: 'If you click on the wrong tile, the game ends.',
+  },
+];

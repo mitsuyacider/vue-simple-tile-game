@@ -80,7 +80,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style>
 .loading {
   position: absolute;
   background: rgba(255, 255, 255, 1);

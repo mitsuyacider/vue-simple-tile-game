@@ -1,7 +1,7 @@
 <template>
   <div>
     <header>
-      <h1>Game of Colors</h1>
+      <h1><router-link to="/">Game of Colors</router-link></h1>
     </header>
     <router-view />
   </div>
