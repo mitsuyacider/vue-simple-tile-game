@@ -99,5 +99,6 @@ export default defineComponent({
 
 .game-level {
   text-align: center;
+  margin-bottom: 10px;
 }
 </style>
