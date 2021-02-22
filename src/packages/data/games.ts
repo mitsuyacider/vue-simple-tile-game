@@ -49,8 +49,7 @@ export const START_TILES: StartTileProps[] = [
       wrong: '#000000',
     },
     isCorrect: false,
-    text:
-      'This is a single-page JavaScript application that displays a matrix of colored tiles.',
+    text: 'Welcome to Game of Colors!',
   },
   {
     color: {
@@ -59,7 +58,7 @@ export const START_TILES: StartTileProps[] = [
     },
     isCorrect: false,
     text:
-      'If you click on the correct tile, the game continues, and you progresses to the next level of difficulty.',
+      'This is a single-page JavaScript application that displays a matrix of colored tiles.',
   },
   {
     color: {
@@ -75,6 +74,7 @@ export const START_TILES: StartTileProps[] = [
       wrong: '#000000',
     },
     isCorrect: false,
-    text: 'If you click on the wrong tile, the game ends.',
+    text:
+      'If you click on the correct tile, the game continues, and you progresses to the next level of difficulty. If you click on the wrong tile, the game ends.',
   },
 ];
