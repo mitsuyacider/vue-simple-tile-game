@@ -4,14 +4,16 @@
       class="tile__inner"
       :style="getTileInnerStyle()"
       @click="$emit('clickTile', tile)"
-    ></div>
+    >
+      <div class="char-tile">{{ tile.text }}</div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, toRefs } from 'vue';
 import { useTileStyle } from '@/composables/useTileStyle';
-import { TileProps } from '@/packages/data';
+import { StartTileProps } from '@/packages/data';
 
 export default defineComponent({
   emits: ['clickTile'],
@@ -21,13 +23,14 @@ export default defineComponent({
       default: 0,
     },
     tile: {
-      type: Object as () => TileProps,
+      type: Object as () => StartTileProps,
       default: {
         color: {
           correct: '#ff0000',
           wrong: '#000000',
         },
         isCorrect: false,
+        text: '',
       },
     },
   },
@@ -45,8 +48,4 @@ export default defineComponent({
 
 <style scoped>
 @import '../../css/tile.css';
-
-.tile__inner {
-  cursor: pointer;
-}
 </style>

@@ -1,9 +1,10 @@
 import { ref, watch, reactive, onMounted } from 'vue';
 import { fetchGameData } from '@/packages/api';
-import { Game, TileProps } from '@/packages/data';
+import { Game, TileProps, GAME_START } from '@/packages/data';
 
 export const useGameConfig = () => {
   const game = ref<Game | null>(null);
+  const startGame = ref<Game>(GAME_START);
   const tiles = reactive<TileProps[]>([]);
   const gameLevel = ref<number>(1);
 
@@ -21,5 +22,6 @@ export const useGameConfig = () => {
     game,
     tiles,
     gameLevel,
+    startGame,
   };
 };

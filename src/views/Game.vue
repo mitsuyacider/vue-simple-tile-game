@@ -81,6 +81,8 @@ export default defineComponent({
 </script>
 
 <style scoped>
+@import '../css/tileGridContainer.css';
+
 .loading {
   position: absolute;
   background: rgba(255, 255, 255, 1);
@@ -93,11 +95,8 @@ export default defineComponent({
   min-height: 300px;
 }
 
-.grid-container {
-  position: relative;
-}
-
 .game-level {
   text-align: center;
+  margin-bottom: 10px;
 }
 </style>
