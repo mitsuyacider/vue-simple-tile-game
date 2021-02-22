@@ -48,34 +48,4 @@ export default defineComponent({
 
 <style scoped>
 @import '../../css/tile.css';
-
-.char-tile {
-  font-size: 18px;
-  color: white;
-  text-align: center;
-  position: absolute;
-  width: 100%;
-  top: 50%;
-  left: 50%;
-  padding: 15px;
-  transform: translate(-50%, -50%);
-  line-height: 20px;
-}
-
-.start-link {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-@media only screen and (max-width: 768px) {
-  .char-tile {
-    font-size: 12px;
-    line-height: 14px;
-  }
-
-  .char-tile a {
-    margin: 0 auto;
-  }
-}
 </style>

@@ -70,4 +70,6 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+@import '../css/tileGridContainer.css';
+</style>

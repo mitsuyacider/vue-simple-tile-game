@@ -44,22 +44,9 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.tile {
-  width: 100px;
-  height: 100px;
-  display: inline-block;
-  z-index: 1;
-  position: relative;
-  font-size: 12px;
-  color: black;
-}
+@import '../../css/tile.css';
 
 .tile__inner {
-  width: calc(100% - 8px);
-  height: calc(100% - 8px);
-  background: black;
-  border-radius: 2px;
-  margin: 4px;
-  display: inline-block;
+  cursor: pointer;
 }
 </style>
