@@ -10,6 +10,11 @@ export type TileProps = {
   isCorrect: boolean;
 };
 
+export type StartTileProps = TileProps & {
+  text: string;
+  title?: string;
+};
+
 // NOTE: Tile color
 export type TileColor = {
   correct: string;

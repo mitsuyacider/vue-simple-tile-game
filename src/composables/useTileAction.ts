@@ -1,5 +1,5 @@
 import { Ref } from 'vue';
-import { TileProps } from '../packages/data';
+import { TileProps, StartTileProps } from '../packages/data';
 import { Game } from '@/packages/data';
 
 import router from '@/router';
@@ -8,6 +8,10 @@ export const useTileAction = (
   game: Ref<Game | null>,
   gameLevel: Ref<number>,
 ) => {
+  /**
+   * NOTE: When a tile on game page is cliced, do page transition or progress game.
+   * @param tile
+   */
   const handleTileClick = (tile: TileProps) => {
     if (!game) return;
 
@@ -21,18 +25,25 @@ export const useTileAction = (
         router.push('/game-end');
       } else {
         // NOTE: If the user can still progress the game,
-        // Step up game level.
-        // game.value = GAMES.results[game.value!.level];
-
-        // game.value = Object.assign({}, game.value!, {
-        //   level: game.value!.level + 1,
-        // });
         gameLevel.value += 1;
       }
     }
   };
 
+  /**
+   * NOTE: When start tile is clicked, go to game page
+   * @param tile
+   */
+  const handleStartTileClick = (tile: StartTileProps) => {
+    if (!game) return;
+
+    if (tile.isCorrect) {
+      // NOTE: Go to game start page.
+      router.push('/game');
+    }
+  };
   return {
     handleTileClick,
+    handleStartTileClick,
   };
 };

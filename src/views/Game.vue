@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, watchEffect } from 'vue';
+import { defineComponent, watch, ref, onMounted } from 'vue';
 
 // Components
 import { TileGrid, Tile } from '@/components/tile-grid';
@@ -30,38 +30,35 @@ import { TileGrid, Tile } from '@/components/tile-grid';
 import { useTileAction } from '@/composables/useTileAction';
 import { useGameConfig } from '@/composables/useGameConfig';
 import { useTileGenerator } from '@/composables/useTileGenerator';
+import { useWindowResize } from '@/composables/useWindowResize';
+import { useGridElement } from '@/composables/useGridElement';
 
 export default defineComponent({
   name: 'Game',
   components: { TileGrid, Tile },
   setup() {
     // NOTE: Reactive values
-
     const tileSize = ref<number>(0);
     const gridRef = ref<HTMLElement | null>(null);
     const { game, gameLevel } = useGameConfig();
+    const { windowWidth } = useWindowResize();
 
     // NOTE: Composables
     const { handleTileClick } = useTileAction(game, gameLevel);
     const { tiles, generateTiles, calcTileSize } = useTileGenerator();
+    const { getGridElement } = useGridElement(gridRef);
 
-    const getGridElement = () => {
-      // NOTE: Get proxy value for tile grid ref
-      // Refs: https://v3.vuejs.org/guide/reactivity.html#what-is-reactivity
-      const handler = {
-        get(target: any, prop: any) {
-          return target[prop];
-        },
-      };
-      const proxy = new Proxy(gridRef.value, handler);
-      return proxy.gridRef;
-    };
-
-    watchEffect(() => {
-      // NOTE: Create tile config
+    // NOTE: Create tile config when game config has changed
+    watch(game, () => {
       if (!gridRef.value || !game.value) return;
 
       generateTiles(game.value);
+      tileSize.value = calcTileSize(getGridElement(), game.value!.grid.cols);
+    });
+
+    // NOTE: Resize tile size when window size has changed
+    watch(windowWidth, () => {
+      if (!gridRef.value || !game.value) return;
       tileSize.value = calcTileSize(getGridElement(), game.value!.grid.cols);
     });
 
@@ -84,6 +81,8 @@ export default defineComponent({
 </script>
 
 <style scoped>
+@import '../css/tileGridContainer.css';
+
 .loading {
   position: absolute;
   background: rgba(255, 255, 255, 1);
@@ -96,11 +95,8 @@ export default defineComponent({
   min-height: 300px;
 }
 
-.grid-container {
-  position: relative;
-}
-
 .game-level {
   text-align: center;
+  margin-bottom: 10px;
 }
 </style>
