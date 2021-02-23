@@ -1,5 +1,5 @@
 import { Ref } from 'vue';
-import { TileProps, StartTileProps } from '../packages/data';
+import { TileProps, CharTileProps } from '../packages/data';
 import { Game } from '@/packages/data';
 
 import router from '@/router';
@@ -34,7 +34,7 @@ export const useTileAction = (
    * NOTE: When start tile is clicked, go to game page
    * @param tile
    */
-  const handleStartTileClick = (tile: StartTileProps) => {
+  const handleStartTileClick = (tile: CharTileProps) => {
     if (!game) return;
 
     if (tile.isCorrect) {

@@ -32,6 +32,11 @@
   line-height: 20px;
 }
 
+/* NOTE: Change cursor icon */
+.tile.clickable .tile__inner {
+  cursor: pointer;
+}
+
 .start-link {
   width: 100%;
   height: 100%;

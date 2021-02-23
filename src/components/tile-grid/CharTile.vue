@@ -1,29 +1,29 @@
 <template>
-  <div class="tile" :style="getTileStyle(tileSize)">
-    <div
-      class="tile__inner"
-      :style="getTileInnerStyle()"
-      @click="$emit('clickTile', tile)"
-    >
+  <Tile
+    :tileSize="tileSize"
+    :tile="tile"
+    v-on:clickTile="$emit('clickTile', tile)"
+  >
+    <template #char-tile>
       <div class="char-tile">{{ tile.text }}</div>
-    </div>
-  </div>
+    </template>
+  </Tile>
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs } from 'vue';
-import { useTileStyle } from '@/composables/useTileStyle';
-import { StartTileProps } from '@/packages/data';
+import { defineComponent } from 'vue';
+import { CharTileProps } from '@/packages/data';
+import { Tile } from '@/components/tile-grid';
 
 export default defineComponent({
   emits: ['clickTile'],
   props: {
     tileSize: {
       type: Number,
-      default: 0,
+      default: 100,
     },
     tile: {
-      type: Object as () => StartTileProps,
+      type: Object as () => CharTileProps,
       default: {
         color: {
           correct: '#ff0000',
@@ -34,18 +34,6 @@ export default defineComponent({
       },
     },
   },
-  setup(props) {
-    const { tile } = toRefs(props);
-    const { getTileStyle, getTileInnerStyle } = useTileStyle(tile);
-
-    return {
-      getTileStyle,
-      getTileInnerStyle,
-    };
-  },
+  components: { Tile },
 });
 </script>
-
-<style scoped>
-@import '../../css/tile.css';
-</style>
