@@ -4,7 +4,9 @@
       class="tile__inner"
       :style="getTileInnerStyle()"
       @click="$emit('clickTile', tile)"
-    ></div>
+    >
+      <slot name="char-tile"></slot>
+    </div>
   </div>
 </template>
 
@@ -45,8 +47,4 @@ export default defineComponent({
 
 <style scoped>
 @import '../../css/tile.css';
-
-.tile__inner {
-  cursor: pointer;
-}
 </style>

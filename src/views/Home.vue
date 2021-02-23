@@ -9,6 +9,7 @@
             :key="index"
             :tileSize="tileSize"
             :tile="value"
+            :class="{ clickable: value.isCorrect }"
           />
         </template>
       </TileGrid>
