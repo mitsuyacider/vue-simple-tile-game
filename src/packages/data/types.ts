@@ -10,7 +10,7 @@ export type TileProps = {
   isCorrect: boolean;
 };
 
-export type StartTileProps = TileProps & {
+export type CharTileProps = TileProps & {
   text: string;
   title?: string;
 };

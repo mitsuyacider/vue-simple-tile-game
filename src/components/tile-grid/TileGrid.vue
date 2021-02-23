@@ -22,7 +22,7 @@ export default defineComponent({
 <style></style>
 
 <style scoped>
-.tile-grid::before {
+[class*='tile-grid']::before {
   content: '';
   position: absolute;
   top: 0;
@@ -34,10 +34,9 @@ export default defineComponent({
   background: #d7dedf;
 }
 
-.tile-grid {
-  /* min-width: 300px; */
+[class*='tile-grid'] {
   width: 500px;
-  /* max-width: 1000px; */
+
   margin: 0 auto;
   background: #e0555b;
   position: relative;
@@ -46,6 +45,36 @@ export default defineComponent({
 
   /* Trim space */
   font-size: 0;
+}
+
+.tile-grid--fluid-small {
+  min-width: 300px;
+  width: 30vw;
+  max-width: 800px;
+}
+
+.tile-grid--fluid-medium {
+  min-width: 300px;
+  width: 50vw;
+  max-width: 800px;
+}
+
+.tile-grid--fluid-big {
+  min-width: 300px;
+  width: 70vw;
+  max-width: 800px;
+}
+
+.tile-grid--fixed-small {
+  width: 300px;
+}
+
+.tile-grid--fixed-medium {
+  width: 500px;
+}
+
+.tile-grid--fixed-big {
+  width: 800px;
 }
 
 @media only screen and (max-width: 768px) {

@@ -14,6 +14,7 @@
           :key="index"
           :tileSize="tileSize"
           :tile="value"
+          class="clickable"
         />
       </template>
     </TileGrid>
@@ -53,18 +54,18 @@ export default defineComponent({
       if (!gridRef.value || !game.value) return;
 
       generateTiles(game.value);
-      tileSize.value = calcTileSize(getGridElement(), game.value!.grid.cols);
+      tileSize.value = calcTileSize(getGridElement(), game.value.grid.cols);
     });
 
     // NOTE: Resize tile size when window size has changed
     watch(windowWidth, () => {
       if (!gridRef.value || !game.value) return;
-      tileSize.value = calcTileSize(getGridElement(), game.value!.grid.cols);
+      tileSize.value = calcTileSize(getGridElement(), game.value.grid.cols);
     });
 
     onMounted(() => {
       if (game.value) {
-        tileSize.value = calcTileSize(getGridElement(), game.value!.grid.cols);
+        tileSize.value = calcTileSize(getGridElement(), game.value.grid.cols);
       }
     });
 
