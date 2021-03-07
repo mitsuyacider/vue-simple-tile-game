@@ -1,6 +1,7 @@
 # Game of Colors
 
 ![home](./screenshots/home.png)
+[Here](https://mitsuyacider.github.io/vue-simple-tile-game/#/) is demo site. You can play this application on the page.
 
 # Overview
 
